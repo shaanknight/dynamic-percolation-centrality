@@ -38,12 +38,12 @@ optional arguments:
   -r, --recompile       Recompile executables
 ```
 
-For example, to run an edge update on the dataset `PGPgiantcompo.in` using Dynamic algorithm on CPU,
+For example, to run edge updates in file `PGPgiantcompo_queries` on the dataset `PGPgiantcompo.in` using Dynamic algorithm on CPU,
 ```
 python run.py --algorithm dynedge --dataset PGPgiantcompo.in --query PGPgiantcompo_queries
 ```
 
-To run a vertex percolation value update on the dataset `PGPgiantcompo.in` using Dynamic algorithm on GPU and store the output in `my_outfile.txt`,
+To run vertex percolation value updates in file `PGPgiantcompo_queries` on the dataset `PGPgiantcompo.in` using Dynamic algorithm on GPU and store the output in `my_outfile.txt`,
 ```
 python run.py --algorithm dynperc --dataset PGPgiantcompo.in --query PGPgiantcompo_queries --gpu -o my_outfile.txt 
 ```
