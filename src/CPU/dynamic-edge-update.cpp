@@ -384,10 +384,12 @@ int main(int argc, char **argv)
 	cout.tie(0);
 
 	string input = argv[1];
-   string queries = argv[2];
-   omp_set_num_threads(numthreads);
-
+	string queries = argv[2];
+	string output = argv[3];
+	omp_set_num_threads(numthreads);
 	ifstream fin(input);
+	ofstream fout(output);
+
 	fin >> n >> m;
 	vertices = n;
 	for(int i=0;i<=n;++i)
@@ -538,6 +540,15 @@ int main(int argc, char **argv)
 		}
 		auto t4 = std::chrono::high_resolution_clock::now();
 		duration_dynamic += std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+		fill(ac.begin(),ac.end(),0);
+		for(int i=1;i<=V;++i)
+			ac[rep[i]] += pCentrality[i];
+		for(int i=1;i<=n;++i)
+		{
+			ac[i] /= (sum_x - contrib[i]);
+			fout << ac[i] << " ";
+		}
+		fout << "\n";
 	}
 	cerr << "Total time for updates : " << duration_dynamic << " mu.s." <<endl;
 

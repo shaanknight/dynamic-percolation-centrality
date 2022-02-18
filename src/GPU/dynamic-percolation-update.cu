@@ -485,8 +485,9 @@ int main(int argc, char **argv)
 
 	string input = argv[1];
 	string queries = argv[2];
-
+	string output = argv[3];
 	ifstream fin(input);
+	ofstream fout(output);
 
 	fin >> n >> m;
 	vertices = n;
@@ -726,6 +727,17 @@ int main(int argc, char **argv)
 
 		auto t4 = std::chrono::high_resolution_clock::now();
 		duration_dynamic += std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+
+		cudaMemcpy(Centrality, dCentrality, sizeof(double)*(V+1), cudaMemcpyDeviceToHost);
+		fill(global_pc.begin(),global_pc.end(),0.0);
+		for(int i=1;i<=V;++i)
+			global_pc[rep[i]] += Centrality[i];
+		for(int i=1;i<=n;++i)
+		{
+			global_pc[i] /= (sum_x - contrib[i]);
+			fout << global_pc[i] << " ";
+		}
+		fout << "\n";
 
 		x = updated_x;
 		for(int i=1;i<=V;++i)

@@ -165,9 +165,10 @@ int main( int argc, char **argv )
 	cout.tie(0);
 
    string input = argv[1];
-   string queries = argv[2];
-
-   ifstream fin(input);
+	string queries = argv[2];
+	string output = argv[3];
+	ifstream fin(input);
+	ofstream fout(output);
 
    int V,E;
 
@@ -336,6 +337,10 @@ int main( int argc, char **argv )
 		
 		auto t4 = std::chrono::high_resolution_clock::now();
 		duration_actual += std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+
+		for(int i=1;i<=V;++i)
+			fout << Centrality[i]/(sum_x-contrib[i]) << " ";
+		fout << "\n";
 	}
 	cerr << "Total time for updates : " << duration_actual << " mu.s." << endl;
 

@@ -114,10 +114,12 @@ int main( int argc, char **argv ) {
 	cout.tie(0);
 
     string input = argv[1];
-    string queries = argv[2];
-    omp_set_num_threads(numthreads);
+	string queries = argv[2];
+	string output = argv[3];
+	omp_set_num_threads(numthreads);
+	ifstream fin(input);
+	ofstream fout(output);
 
-    ifstream fin(input);
 	fin >> N >> M; 
 	int u,v;
 	adj.resize(N+1);
@@ -197,6 +199,9 @@ int main( int argc, char **argv ) {
 			brandes(i,x,adj,ptr);
 		auto t4 = std::chrono::high_resolution_clock::now();
 		duration_actual += std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+		for(int i=1;i<=N;++i)
+			fout << percolation[i]/(sum_x-contrib[i]) << " ";
+		fout << "\n";
 	}
 	cerr << "Total time for updates : " << duration_actual << " mu.s." <<endl;
 	fill(test_percolation.begin(),test_percolation.end(),0);

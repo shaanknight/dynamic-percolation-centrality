@@ -356,8 +356,10 @@ int main(int argc, char **argv)
 
 	string input = argv[1];
 	string queries = argv[2];
+	string output = argv[3];
 	omp_set_num_threads(numthreads);
 	ifstream fin(input);
+	ofstream fout(output);
 
 	fin >> n >> m;
 	vertices = n;
@@ -394,7 +396,7 @@ int main(int argc, char **argv)
 		}
 	}
 
-   auto res = compute_constants();
+    auto res = compute_constants();
 	double sum_x = res.first;
 	vector<double> contrib = res.second;
 	x.resize(2*m+1);
@@ -510,6 +512,16 @@ int main(int argc, char **argv)
 		
 		auto t4 = std::chrono::high_resolution_clock::now();
 		duration_dynamic += std::chrono::duration_cast<std::chrono::microseconds>( t4 - t3 ).count();
+		
+		fill(ac.begin(),ac.end(),0);
+		for(int i=1;i<=V;++i)
+			ac[rep[i]] += pCentrality[i];
+		for(int i=1;i<=n;++i)
+		{
+			ac[i] /= (sum_x - contrib[i]);
+			fout << ac[i] << " ";
+		}
+		fout << "\n";
 
 		x = updated_x;
 	}
