@@ -23,11 +23,8 @@ Compute percolation centrality on dynamic graphs with edge and vertex percolatio
 optional arguments:
   -h, --help            show this help message and exit
   -a ALGO, --algorithm ALGO
-                        pcso - source-based percolation centrality, pcsd -
-                        source-destination-based percolation centrality
-                        pcsobcc - source-based percolation centrality with bcc
-                        decomposition pcsdbcc - source-destination-based
-                        percolation centrality with bcc decomposition
+                        dynperc - dynamic algorithm for vertex percolation update, statperc - static algorithm for vertex percolation update dynedge -
+                        dynamic algorithm for edge update statedge - static algorithm for edge update
   -d DATASET, --dataset DATASET
                         The dataset to run on. Dataset must be present in
                         ./datasets subdirectory. Look at existing datasets for
