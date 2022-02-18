@@ -4,7 +4,7 @@ from sys import exit
 from os.path import isfile, exists
 from os import mkdir
 
-parser = argparse.ArgumentParser(description='Compute percolation centrality on dynamic graphs with edge and query updates')
+parser = argparse.ArgumentParser(description='Compute percolation centrality on dynamic graphs with edge and vertex percolation value updates')
 parser.add_argument('-a', '--algorithm', dest='algo',
                     default=['dynperc'], nargs=1,
                     help='dynperc - dynamic algorithm for vertex percolation update, \
