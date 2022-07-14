@@ -31,19 +31,18 @@ optional arguments:
                         the input format
   -o OUTFILE, --outfile OUTFILE
                         Output file name
-  -q QUERY, --query QUERY
-                        The query file containing the updates to be handled. File must be present in ./queries/percolation-update-queries or
-                        ./queries/edge-update-queries subdirectory. Look at existing query files for the input and naming format
+  -b BATCH, --batch BATCH
+                        Batch size of the update
   -g, --gpu             Run experiment of GPU (default: multicore CPU)
   -r, --recompile       Recompile executables
 ```
 
-For example, to run edge updates in file `PGPgiantcompo_queries` on the dataset `PGPgiantcompo.in` using Dynamic algorithm on CPU,
+For example, to run edge updates for a batch of size 10 on the dataset `PGPgiantcompo` using Dynamic algorithm on CPU,
 ```
-python run.py --algorithm dynedge --dataset PGPgiantcompo.in --query PGPgiantcompo_queries
+python run.py --algorithm dynedge --dataset PGPgiantcompo --batch 10
 ```
 
-To run vertex percolation value updates in file `PGPgiantcompo_queries` on the dataset `PGPgiantcompo.in` using Dynamic algorithm on GPU and store the output in `my_outfile.txt`,
+To run vertex percolation value updates for a batch of size 40 on the dataset `PGPgiantcompo` using Dynamic algorithm on GPU and store the output in `my_outfile.txt`,
 ```
-python run.py --algorithm dynperc --dataset PGPgiantcompo.in --query PGPgiantcompo_queries --gpu -o my_outfile.txt 
+python run.py --algorithm dynperc --dataset PGPgiantcompo -b 40 --gpu -o my_outfile.txt 
 ```
